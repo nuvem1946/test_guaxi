@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"> <!-- Define acentuação em PT-BR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ajusta a tela em celulares -->
+    <title>Sistema de Gestão de Roupas</title>
+    <style>
+        * { box-sizing: border-box; font-family: sans-serif; } /* Zera margens e define a fonte */
+        body { background-color: #f4f6f9; padding: 20px; color: #333; } /* Cor do fundo da página */
+        .header { text-align: center; margin-bottom: 20px; } /* Centraliza o título do topo */
+        .container { display: flex; gap: 20px; flex-wrap: wrap; max-width: 900px; margin: auto; } /* Organiza os cards lado a lado */
+        .card { background: white; padding: 20px; border-radius: 8px; flex: 1; min-width: 300px; } /* Estilo dos quadros/caixas */
+        label { display: block; margin-top: 10px; font-weight: bold; } /* Deixa os textos sobre os inputs em negrito */
+        input { width: 100%; padding: 8px; margin-top: 5px; } /* Estiliza as caixas de digitação */
+        button { width: 100%; padding: 10px; background: #003366; color: white; border: none; margin-top: 15px; cursor: pointer; } /* Botão escuro */
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; } /* Ajusta a largura e bordas da tabela */
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; } /* Linhas e colunas da tabela */
+        th { background: #003366; color: white; } /* Cabeçalho da tabela escuro */
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Controle de Estoque</h1> <!-- Título principal -->
+    </div>
+
+    <div class="container">
+        <!-- FORMULÁRIO -->
+        <div class="card">
+            <h2>Cadastrar Roupa</h2>
+            <form action="/cadastrar" method="POST"> <!-- Envia os dados via POST para a rota /cadastrar -->
+                <label>Marca:</label>
+                <input type="text" name="marca" required autocomplete="off"> <!-- name="marca" é a chave que o Python vai ler -->
+
+                <label>Tamanho:</label>
+                <input type="text" name="tamanho" required autocomplete="off"> <!-- name="tamanho" é a chave que o Python vai ler -->
+
+                <button type="submit">Salvar no Banco</button> <!-- Botão que dispara o envio do formulário -->
+            </form>
+        </div>
+
+        <!-- TABELA DE RESULTADOS -->
+        <div class="card">
+            <h2>Roupas Registradas</h2>
+            <table>
+                <thead>
+                    <tr> <th>ID</th> <th>Marca</th> <th>Tamanho</th> </tr> <!-- Cabeçalho da tabela -->
+                </thead>
+                <tbody>
+                    {% for roupa in roupas %} <!-- Laço do Jinja2 para repetir cada registro do banco -->
+                    <tr>
+                        <td>{{ roupa[0] }}</td> <!-- Exibe o ID (coluna 0) -->
+                        <td>{{ roupa[1] }}</td> <!-- Exibe a Marca (coluna 1) -->
+                        <td>{{ roupa[2] }}</td> <!-- Exibe o Tamanho (coluna 2) -->
+                    </tr>
+                    {% else %} <!-- Executado caso o banco esteja vazio -->
+                    <tr> <td colspan="3">Nenhum registro cadastrado.</td> </tr>
+                    {% endfor %} <!-- Fim do laço de repetição -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

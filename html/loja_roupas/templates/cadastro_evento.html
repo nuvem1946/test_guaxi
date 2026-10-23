@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Sistema de Gestão- de Roupas - SENAI</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
+        }
+        body {
+            background-color:aliceblue#f4f6f9;
+            margin: 0;
+            padding: 40px 20px;
+            color:#fe0000;
+        }
+        .header {
+            max-width: 900x;
+            margin: 0 auto 30 px auto; 
+            text-align: center;
+        }
+        .image{
+            width: 50%;
+            max-width: 100px;
+            height: auto;
+            margin: 20px auto;
+        }
+        .header h1 {
+            color:#000000;
+            margin: 0 0 10px 0;
+        }
+        .header p {
+            color:#ff1100;
+            font-size: 1.1em;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex; 
+            gap: 30px; /* cria uma espaço. 30*/
+            flex-wrap: wrap; /*quebra de linha*/
+        }
+        .card {
+            background-color: #000000;
+            padding: 25px; /* espaçamento interno em todas as direções*/
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,08);
+            flex: 1;
+            min-width: 320px;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #ff0000;
+            border-bottom: 2px solid #ff0000;
+            padding-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .card h3{
+            margin-top: 0;
+            color: #000000;
+            border-bottom: #fe0000;
+            padding-bottom: 10px;
+            font-size: small;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #ff0000;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 6px;
+            border: 1px solid #ff0000;
+            border-radius:- 5px;
+            font-size: 1em;
+        }
+        input [type="text"]:focus {
+            outline: nome;
+            border-color: #ff0101
+        }
+        button {
+            background-color: #ff0000;
+            color: rgb(255, 255, 255);
+            border: nome;
+            padding: 12px;
+            margin-top: 25px;
+            width: 100%;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #002244;
+        }
+        table { /*cria tabela*/
+            width: 100%;
+            border-collapse:collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ff0000;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #ff0000;
+            color: white;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9
+        }
+        .empty-row {
+            text-align: center;
+            color: #fe0000;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+            <img src="./static/roupasslogan.jpg" alt="Descrição da imagem"> <!--imagem-->
+            <figcaption>Seu estilo e sua vibe lado a lado.</figcaption>
+        <h1>Sistema de Controle de Estoque</h1>
+        <p>integração Python (flask) + HTML/CSS</p>
+    </div>
+
+    <div class="container">
+        <!-- FORMULARIO DE CADASTRO-->
+        <div class="card">
+            <h2>Cadastrar Roupa</h2>
+            <form action="/cadastrar" method="POST">
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" name="marca" placeholder="Ex: Nike, Adidas, Zara" required autocomplete="off">
+
+                <label for="tamanho">Tamanho:</label>
+                <input type="text" id="tamanho" name="tamanho" placeholder="Ex: P, M, G, GG" required autocomplete="off">
+
+                <button type="submit">Salvar no Banco de Dados</button>
+            </form>
+        </div>
+
+        <!--TABELA DE CONSULTA-->
+        <div class="card">
+            <h2>Roupas Registradas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 20%;">ID</th>
+                        <th style="width: 50%;">marca</th>
+                        <th style="width: 30%;">Tamanho</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for roupa in roupas%}<!--Laço de jinja2 repetição de cada registro-->
+                    <tr>
+                        <td>{{ roupa[0] }}</td> <!--exibe id {coluna 0}-->
+                        <td>{{ roupa[1] }}</td> <!--exibe marca {coluna 1}-->
+                        <td>{{ roupa[2] }}</td> <!--exibe o tamanho{coluna 2}-->
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <tdcolspan="3" class="empty-row">Nenhum registro cadastrado no banco.</tdcolspan>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+         
+</body>
+</html>
