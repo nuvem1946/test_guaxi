@@ -1,3 +1,8 @@
-print("hello, word")
-print("meu primeiro app #-guaxi mania-#")
-print("ambiente funcional")
+print("ola guaxi ")
+gua = input(" qual o seu nome? ")
+if gua=="yumi":
+    print("mentira vc n e ela")
+elif gua=="light":
+    print("vc n e o light")
+else:
+    print("legal o seu nome ",gua)
